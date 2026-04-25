@@ -1,3 +1,4 @@
+// home/sandeep/Projects/data-viewer-system/backend/config/db.js
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
