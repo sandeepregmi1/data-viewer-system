@@ -1,4 +1,3 @@
-// home/sandeep/Projects/data-viewer-system/frontend/src/pages/Dashboard.tsx
 import React, { useEffect, useState } from "react";
 import { getRegistrations } from "../services/api";
 import { Registration } from "../types/registration";
