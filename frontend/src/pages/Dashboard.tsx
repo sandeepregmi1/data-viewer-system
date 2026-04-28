@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getRegistrations } from "../services/api";
 import { Registration } from "../types/registration";
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
 
 const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleString("en-US", {
