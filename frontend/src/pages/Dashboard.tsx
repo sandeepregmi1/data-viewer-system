@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getRegistrations } from "../services/api";
 import { Registration } from "../types/registration";
 
@@ -655,13 +656,27 @@ const Dashboard: React.FC = () => {
                                 : `${filteredData.length} record${filteredData.length !== 1 ? "s" : ""} in the system`}
                         </div>
                     </div>
-                    <button
-                        style={s.btnExport}
-                        onClick={downloadCSV}
-                        disabled={filteredData.length === 0}
-                    >
-                        ↓ Export CSV
-                    </button>
+                    <div style={{ display: "flex", gap: 12 }}>
+                        <Link
+                            to="/members"
+                            style={{
+                                ...s.btnExport,
+                                textDecoration: "none",
+                                background: "#f8fafc",
+                                color: "#3b82f6",
+                                borderColor: "#3b82f6",
+                            }}
+                        >
+                            📋 Detailed Member View
+                        </Link>
+                        <button
+                            style={s.btnExport}
+                            onClick={downloadCSV}
+                            disabled={filteredData.length === 0}
+                        >
+                            ↓ Export CSV
+                        </button>
+                    </div>
                 </div>
 
                 {/* ── Controls ── */}
