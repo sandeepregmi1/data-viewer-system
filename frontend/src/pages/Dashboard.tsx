@@ -231,7 +231,24 @@ const DetailView: React.FC<{
                                 <Field label="Institution" value={item.institution} full />
                                 <Field label="Track" value={<Badge label={item.track} variant="track" />} />
                                 <Field label="Role" value={<Badge label={item.role} variant="role" />} />
-                                <Field label="Experience" value={<Badge label={item.experience} variant="exp" />} />
+                                <Field 
+                                    label="Experience" 
+                                    value={
+                                        <div style={{ 
+                                            whiteSpace: "pre-wrap", 
+                                            fontSize: 12, 
+                                            lineHeight: 1.5,
+                                            background: "#f8fafc",
+                                            padding: 10,
+                                            borderRadius: 8,
+                                            border: "1px solid #f1f5f9",
+                                            color: "#334155"
+                                        }}>
+                                            {item.experience || "No experience listed."}
+                                        </div>
+                                    } 
+                                    full
+                                />
                             </div>
                         </Section>
                     </div>
@@ -257,26 +274,38 @@ const DetailView: React.FC<{
                                     <div style={{ fontSize: 11, color: "#9ca3af", marginBottom: 6 }}>
                                         Other members
                                     </div>
-                                    <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                                         {item.team_members.map((m, i) => (
                                             <div
                                                 key={i}
                                                 style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    padding: "7px 12px",
+                                                    padding: "12px",
                                                     background: "#f9fafb",
-                                                    borderRadius: 8,
-                                                    fontSize: 13,
+                                                    borderRadius: 10,
+                                                    border: "1px solid #f1f5f9",
                                                 }}
                                             >
-                                                <span style={{ fontWeight: 500, color: "#111827" }}>
-                                                    {m.name}
-                                                </span>
-                                                <span style={{ color: "#3b82f6", fontSize: 12 }}>
-                                                    {m.github || "No GitHub"}
-                                                </span>
+                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                                                    <span style={{ fontWeight: 600, color: "#111827", fontSize: 14 }}>
+                                                        {m.name}
+                                                    </span>
+                                                    {m.age && (
+                                                        <span style={{ fontSize: 11, color: "#6b7280", background: "#f3f4f6", padding: "2px 6px", borderRadius: 4 }}>
+                                                            Age: {m.age}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
+                                                    <div style={{ fontSize: 12, color: "#6b7280" }}>
+                                                        Email: <span style={{ color: "#374151" }}>{m.email || "—"}</span>
+                                                    </div>
+                                                    <div style={{ fontSize: 12, color: "#6b7280" }}>
+                                                        Phone: <span style={{ color: "#374151" }}>{m.phoneNumber || "—"}</span>
+                                                    </div>
+                                                    <div style={{ fontSize: 12, color: "#6b7280", gridColumn: "1 / -1" }}>
+                                                        GitHub: <a href={m.github} target="_blank" rel="noreferrer" style={{ color: "#3b82f6", textDecoration: "none" }}>{m.github || "—"}</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -436,7 +465,7 @@ const Dashboard: React.FC = () => {
         const rows = filteredData.map((item, i) => {
             const members =
                 item.team_members
-                    ?.map((m) => `${m.name}(${m.github || "N/A"})`)
+                    ?.map((m) => `${m.name} (Age: ${m.age || "N/A"}, Email: ${m.email || "N/A"}, Phone: ${m.phoneNumber || "N/A"}, GitHub: ${m.github || "N/A"})`)
                     .join(" | ") || "N/A";
             return [
                 i + 1,
@@ -829,8 +858,17 @@ const Dashboard: React.FC = () => {
                                                 </td>
 
                                                 {/* Experience */}
-                                                <td style={s.tdBase}>
-                                                    <Badge label={item.experience} variant="exp" />
+                                                <td 
+                                                    style={{ 
+                                                        ...s.tdBase, 
+                                                        maxWidth: 200, 
+                                                        overflow: "hidden", 
+                                                        textOverflow: "ellipsis",
+                                                        fontSize: 12,
+                                                        color: "#64748b"
+                                                    }}
+                                                >
+                                                    {item.experience?.replace(/\n/g, " ") || "—"}
                                                 </td>
 
                                                 {/* Registered */}

@@ -3,6 +3,9 @@
 export interface TeamMember {
     name: string;
     github: string;
+    email?: string;
+    age?: number;
+    phoneNumber?: string;
 }
 
 export interface Registration {

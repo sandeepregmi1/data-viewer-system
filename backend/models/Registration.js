@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 
 const teamMemberSchema = new mongoose.Schema({
     name: String,
-    github: String
+    github: String,
+    email: String,
+    age: Number,
+    phoneNumber: String
 });
 
 const registrationSchema = new mongoose.Schema(
